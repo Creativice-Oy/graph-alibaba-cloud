@@ -8,6 +8,10 @@ Alibaba Cloud's API can be found for each respective service. For example,
 documentation on the ECS service's API can be found
 [here](https://www.alibabacloud.com/help/en/elastic-compute-service/latest/introduction).
 
+For Object Storage Service, this integration uses the package `ali-oss`. The
+documentation for this package can be found
+[here](https://github.com/ali-sdk/ali-oss).
+
 ## Alibaba Cloud account setup
 
 You can create a free Alibaba Cloud account by following the steps outlined in

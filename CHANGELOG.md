@@ -8,6 +8,21 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added the following entities:
+
+| Resources  | Entity `_type`             | Entity `_class` |
+| ---------- | -------------------------- | --------------- |
+| OSS Bucket | `alibaba_cloud_oss_bucket` | `DataStore`     |
+| OSS Object | `alibaba_cloud_oss_object` | `DataObject`    |
+
+- Added the following Relationships:
+
+| Source Entity `_type`      | Relationship `_class` | Target Entity `_type`      |
+| -------------------------- | --------------------- | -------------------------- |
+| `alibaba_cloud_oss_bucket` | **HAS**               | `alibaba_cloud_oss_object` |
+
 ## 1.0.0 - 2022-05-05
 
 ### Added

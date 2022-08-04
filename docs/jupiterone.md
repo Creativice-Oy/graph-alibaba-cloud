@@ -91,6 +91,16 @@ The following entities are created:
 | Resources    | Entity `_type`               | Entity `_class` |
 | ------------ | ---------------------------- | --------------- |
 | ECS Instance | `alibaba_cloud_ecs_instance` | `Host`          |
+| OSS Bucket   | `alibaba_cloud_oss_bucket`   | `DataStore`     |
+| OSS Object   | `alibaba_cloud_oss_object`   | `DataObject`    |
+
+### Relationships
+
+The following relationships are created:
+
+| Source Entity `_type`      | Relationship `_class` | Target Entity `_type`      |
+| -------------------------- | --------------------- | -------------------------- |
+| `alibaba_cloud_oss_bucket` | **HAS**               | `alibaba_cloud_oss_object` |
 
 <!--
 ********************************************************************************
