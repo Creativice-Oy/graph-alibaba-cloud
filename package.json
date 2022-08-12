@@ -38,6 +38,7 @@
     "@jupiterone/integration-sdk-testing": "^8.13.1"
   },
   "dependencies": {
+    "@alicloud/alb20200616": "^1.0.1",
     "@alicloud/pop-core": "^1.7.10"
   }
 }

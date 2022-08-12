@@ -90,6 +90,7 @@ The following entities are created:
 
 | Resources         | Entity `_type`                    | Entity `_class`       |
 | ----------------- | --------------------------------- | --------------------- |
+| ALB Load Balancer | `alibaba_cloud_alb_load_balancer` | `Gateway`             |
 | Autoscaling Group | `alibaba_cloud_autoscaling_group` | `Deployment`, `Group` |
 | ECS Instance      | `alibaba_cloud_ecs_instance`      | `Host`                |
 | NAT Gateway       | `alibaba_cloud_nat_gateway`       | `Gateway`             |
@@ -100,11 +101,12 @@ The following entities are created:
 
 The following relationships are created:
 
-| Source Entity `_type`             | Relationship `_class` | Target Entity `_type`        |
-| --------------------------------- | --------------------- | ---------------------------- |
-| `alibaba_cloud_autoscaling_group` | **USES**              | `alibaba_cloud_vpc`          |
-| `alibaba_cloud_vpc`               | **HAS**               | `alibaba_cloud_ecs_instance` |
-| `alibaba_cloud_vpc`               | **HAS**               | `alibaba_cloud_nat_gateway`  |
+| Source Entity `_type`             | Relationship `_class` | Target Entity `_type`             |
+| --------------------------------- | --------------------- | --------------------------------- |
+| `alibaba_cloud_autoscaling_group` | **USES**              | `alibaba_cloud_vpc`               |
+| `alibaba_cloud_vpc`               | **HAS**               | `alibaba_cloud_alb_load_balancer` |
+| `alibaba_cloud_vpc`               | **HAS**               | `alibaba_cloud_ecs_instance`      |
+| `alibaba_cloud_vpc`               | **HAS**               | `alibaba_cloud_nat_gateway`       |
 
 <!--
 ********************************************************************************

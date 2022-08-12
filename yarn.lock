@@ -2,6 +2,54 @@
 # yarn lockfile v1
 
 
+"@alicloud/alb20200616@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@alicloud/alb20200616/-/alb20200616-1.0.1.tgz#8c6cc8c6342d637f9586fd2651059ea4f5a04ef5"
+  integrity sha512-BAocnsB8oAPd8yqM7Naog9c5WtWNa555wNXbjGSMQezd4Zira/N1BTaywjL8+w2zTD4BXdg9wMdEFNIO6cVwXw==
+  dependencies:
+    "@alicloud/endpoint-util" "^0.0.1"
+    "@alicloud/openapi-client" "^0.3.0"
+    "@alicloud/tea-typescript" latest
+    "@alicloud/tea-util" "^1.4.0"
+
+"@alicloud/credentials@^2":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@alicloud/credentials/-/credentials-2.2.3.tgz#6c479082e3f627311e2537c0552e3e87a8ecd671"
+  integrity sha512-h98BZimKCQ5xKiFCdWa2OMYaenEP6g5Fndm/l0zp8iuYWOShnvEwBPFmHyHmwpb60KwEJp0LILl1WiBTS+5a1w==
+  dependencies:
+    "@alicloud/tea-typescript" "^1.5.3"
+    httpx "^2.2.0"
+    ini "^1.3.5"
+    kitx "^2.0.0"
+
+"@alicloud/endpoint-util@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@alicloud/endpoint-util/-/endpoint-util-0.0.1.tgz#b237f5e04e373abb54c42119377b30bd6afb1a7c"
+  integrity sha512-+pH7/KEXup84cHzIL6UJAaPqETvln4yXlD9JzlrqioyCSaWxbug5FUobsiI6fuUOpw5WwoB3fWAtGbFnJ1K3Yg==
+  dependencies:
+    "@alicloud/tea-typescript" "^1.5.1"
+    kitx "^2.0.0"
+
+"@alicloud/openapi-client@^0.3.0":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@alicloud/openapi-client/-/openapi-client-0.3.8.tgz#61ef813722126cbcbb2938f44672d3c4bcc93915"
+  integrity sha512-QuvK6MJtQejSOfUnsEUtdM5AYA8Ww9kV79VO1st5sFPYQWV4R8NXm2yr40Jq4UQmKN2ydlRfbys3ACJDocVfqQ==
+  dependencies:
+    "@alicloud/credentials" "^2"
+    "@alicloud/openapi-util" "^0.2.4"
+    "@alicloud/tea-typescript" "^1.7.1"
+    "@alicloud/tea-util" "^1.4.0"
+
+"@alicloud/openapi-util@^0.2.4":
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/@alicloud/openapi-util/-/openapi-util-0.2.9.tgz#2379cd81f993dcab32066a2b892ddcbdd266d51c"
+  integrity sha512-GUEYtX3lDv+WaZoDFCb0h9aZ8+IlajnSAxSHjiITbNtjCpZbA/vfd7Z/ST9YaPoT34nGqDNKiQTjqpLhaKtYBw==
+  dependencies:
+    "@alicloud/tea-typescript" "^1.7.1"
+    "@alicloud/tea-util" "^1.3.0"
+    kitx "^2.1.0"
+    sm3 "^1.0.3"
+
 "@alicloud/pop-core@^1.7.10":
   version "1.7.10"
   resolved "https://registry.yarnpkg.com/@alicloud/pop-core/-/pop-core-1.7.10.tgz#d0e221036dbb0ccde453dd09b1cfabd8341b7a69"
@@ -12,6 +60,22 @@
     json-bigint "^1.0.0"
     kitx "^1.2.1"
     xml2js "^0.4.17"
+
+"@alicloud/tea-typescript@^1.5.1", "@alicloud/tea-typescript@^1.5.3", "@alicloud/tea-typescript@^1.7.1", "@alicloud/tea-typescript@latest":
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/@alicloud/tea-typescript/-/tea-typescript-1.7.5.tgz#d8afa092f79e545ebe2aa89fd70acb0efad2aed1"
+  integrity sha512-YyRMQaR+zURKBYkA+ckzS/m/5FH6x5P2oihCXLNZ6y0zmeRZPBfl8Rmr+mfPdCQA8ujkRDUn0zvj8M5kd7T0MQ==
+  dependencies:
+    "@types/node" "^12.0.2"
+    httpx "^2.2.6"
+
+"@alicloud/tea-util@^1.3.0", "@alicloud/tea-util@^1.4.0":
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/@alicloud/tea-util/-/tea-util-1.4.4.tgz#d70efe2d401bdd6e2fc2c5b69bbfff3db733e844"
+  integrity sha512-uD2lMmVMSdcmv2rHTzfp2eW4OkyFig/qwBClz3Vh65qd+j6d+bjwGI1M6AnqNg9gL0yhF1Kb2Um8ljA14w1SRw==
+  dependencies:
+    "@alicloud/tea-typescript" "^1.5.1"
+    kitx "^2.0.0"
 
 "@ampproject/remapping@^2.1.0":
   version "2.1.2"
@@ -1073,6 +1137,11 @@
   version "16.11.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.7.tgz#36820945061326978c42a01e56b61cd223dfdc42"
   integrity sha512-QB5D2sqfSjCmTuWcBWyJ+/44bcjO7VbjSbOE0ucoVbAsSNQc4Lt6QkgkVXkTDwkL4z/beecZNDvVX15D4P8Jbw==
+
+"@types/node@^12.0.2":
+  version "12.20.55"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.55.tgz#c329cbd434c42164f846b909bd6f85b5537f6240"
+  integrity sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==
 
 "@types/node@^14":
   version "14.18.15"
@@ -2743,7 +2812,7 @@ https-proxy-agent@^5.0.0:
     agent-base "6"
     debug "4"
 
-httpx@^2.1.2:
+httpx@^2.1.2, httpx@^2.2.0, httpx@^2.2.6:
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/httpx/-/httpx-2.2.7.tgz#1e34198146e32ca3305a66c11209559e1cbeba09"
   integrity sha512-Wjh2JOAah0pdczfqL8NC5378G7jMt0Zcpn8U+yyxAiejjlagzSTQgJHuVvka2VNPQlKfoGehYRc79WKq9E4gDw==
@@ -2847,6 +2916,11 @@ inherits@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
+
+ini@^1.3.5:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.8.tgz#a29da425b48806f34767a4efce397269af28432c"
+  integrity sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==
 
 ipaddr.js@1.9.1:
   version "1.9.1"
@@ -3513,6 +3587,13 @@ kitx@^1.2.1:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/kitx/-/kitx-1.3.0.tgz#ab3ee7c598d2b1d629fd55568f868c4440c200ea"
   integrity sha512-fhBqFlXd0GkKTB+8ayLfpzPUw+LHxZlPAukPNBD1Om7JMeInT+/PxCAf1yLagvD+VKoyWhXtJR68xQkX/a0wOQ==
+
+kitx@^2.0.0, kitx@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/kitx/-/kitx-2.1.0.tgz#fc7fbf78eb6ed7a5a3fd2d7afb3011e29d0e44c8"
+  integrity sha512-C/5v9MtIX7aHGOjwn5BmrrbNkJSf7i0R5mRzmh13GSAdRqQ7bYQo/Su2pTYNylFicqKNTVX3HML9k1u8k51+pQ==
+  dependencies:
+    "@types/node" "^12.0.2"
 
 kleur@^3.0.3:
   version "3.0.3"
@@ -4553,6 +4634,11 @@ slugify@^1.6.3:
   version "1.6.5"
   resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.5.tgz#c8f5c072bf2135b80703589b39a3d41451fbe8c8"
   integrity sha512-8mo9bslnBO3tr5PEVFzMPIWwWnipGS0xVbYf65zxDqfNwmzYn1LpiKNrR6DlClusuvo+hDHd1zKpmfAe83NQSQ==
+
+sm3@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/sm3/-/sm3-1.0.3.tgz#0051f0cc948c983944843136e7baa244eec5cd49"
+  integrity sha512-KyFkIfr8QBlFG3uc3NaljaXdYcsbRy1KrSfc4tsQV8jW68jAktGeOcifu530Vx/5LC+PULHT0Rv8LiI8Gw+c1g==
 
 source-map-support@^0.5.17, source-map-support@^0.5.6:
   version "0.5.20"
