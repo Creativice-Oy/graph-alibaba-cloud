@@ -39,6 +39,7 @@ export function createVPCEntity(vpc: VPC & VPCAttribute): Entity {
         ownerId: String(vpc.OwnerId),
         region: vpc.RegionId,
         name: vpc.VpcName,
+        displayName: vpc.VpcName,
         vRouterId: vpc.VRouterId,
         description: vpc.Description,
         cenStatus: vpc.CenStatus,

@@ -1,10 +1,10 @@
 import { VPC, VPCAttribute } from '../../types';
 import {
   AlibabaResponse,
-  PaginatedResponseWithoutToken,
+  PaginatedResponse,
 } from '../../../../client/types/response';
 
-export interface DescribeVpcsResponse extends PaginatedResponseWithoutToken {
+export interface DescribeVpcsResponse extends PaginatedResponse {
   Vpcs: {
     Vpc: VPC[];
   };

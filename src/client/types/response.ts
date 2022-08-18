@@ -1,11 +1,11 @@
-export interface PaginatedResponse extends AlibabaResponse {
+export interface PaginatedResponseWithToken extends AlibabaResponse {
   PageNumber: number;
   PageSize: number;
   TotalCount: number;
   NextToken: string;
 }
 
-export interface PaginatedResponseWithoutToken extends AlibabaResponse {
+export interface PaginatedResponse extends AlibabaResponse {
   PageNumber: number;
   PageSize: number;
   TotalCount: number;

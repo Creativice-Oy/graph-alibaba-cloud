@@ -27,6 +27,7 @@ export const VPCEntities: Record<'VPC', StepEntityMetadata> = {
         ownerId: { type: 'string' },
         region: { type: 'string' },
         name: { type: 'string' },
+        displayName: { type: 'string' },
         vRouterId: { type: 'string' },
         description: { type: 'string' },
         cenStatus: { type: 'string' },

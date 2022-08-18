@@ -5,54 +5,56 @@ import { DescribeInstancesResponse } from './types/response';
 import { Instance } from '../types';
 import { RegionalServiceClient } from '../../../client/regionalClient';
 import { DescribeInstancesParameters, ECSRequest } from './types/request';
-import { ECS_REGIONS } from '../../../regions';
 import { IntegrationLogger } from '@jupiterone/integration-sdk-core';
-import { PAGE_SIZE } from '../../../client/constants';
+import {
+  ECS_API_VERSION,
+  ECS_ROOT_ENDPOINT,
+  PAGE_SIZE,
+} from '../../../client/constants';
 
 export class ECSClient extends RegionalServiceClient {
-  private client: AlibabaClient;
-
   constructor(config: IntegrationConfig, logger: IntegrationLogger) {
-    super({ logger });
-
-    this.client = new AlibabaClient({
+    const rootClientConfig = {
       accessKeyId: config.accessKeyId,
       accessKeySecret: config.accessKeySecret,
-      endpoint: 'https://ecs.aliyuncs.com',
-      apiVersion: '2014-05-26',
-    });
+      endpoint: ECS_ROOT_ENDPOINT,
+      apiVersion: ECS_API_VERSION,
+    };
 
-    // ECS does not have an endpoint for returning all regions that support ECS.
-    // Instead, its describeRegions endpoint returns a list of every region.
-    this.getRegions = (): Promise<string[]> => Promise.resolve(ECS_REGIONS);
+    super({ logger, rootClientConfig });
   }
 
   public async iterateInstances(
     iteratee: ResourceIteratee<Instance>,
   ): Promise<void> {
-    return this.forEachRegion(async (region: string) => {
-      return this.forEachPage(async (nextToken?: string) => {
-        const parameters: DescribeInstancesParameters = {
-          RegionId: region,
-          PageSize: PAGE_SIZE,
-          NextToken: nextToken,
-        };
+    return this.forEachRegion(
+      async (client: AlibabaClient, regionId: string) => {
+        return this.forEachPageWithToken(async (nextToken?: string) => {
+          const parameters: DescribeInstancesParameters = {
+            RegionId: regionId,
+            PageSize: PAGE_SIZE,
+            NextToken: nextToken,
+          };
 
-        const req: ECSRequest = {
-          client: this.client,
-          action: 'DescribeInstances',
-          parameters,
-        };
+          const req: ECSRequest = {
+            client,
+            action: 'DescribeInstances',
+            parameters,
+            options: {
+              timeout: 10000,
+            },
+          };
 
-        const response = await this.request<DescribeInstancesResponse>(req);
-        const instances = response.Instances.Instance;
-        for (const instance of instances) {
-          await iteratee(instance);
-        }
+          const response = await this.request<DescribeInstancesResponse>(req);
+          const instances = response.Instances.Instance;
+          for (const instance of instances) {
+            await iteratee(instance);
+          }
 
-        return response;
-      });
-    });
+          return response;
+        });
+      },
+    );
   }
 }
 

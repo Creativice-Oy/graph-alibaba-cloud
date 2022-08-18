@@ -10,85 +10,83 @@ import {
 import { VPC, VPCAttribute } from '../types';
 import { RegionalServiceClient } from '../../../client/regionalClient';
 import {
-  DescribeVPCsRequest,
   DescribeVPCAttributeRequest,
-  VPCParameters,
   VPCAttributeParameters,
 } from './types/request';
-import { ECS_REGIONS } from '../../../regions';
-import { PAGE_SIZE } from '../../../client/constants';
+import {
+  PAGE_SIZE,
+  VPC_API_VERSION,
+  VPC_ROOT_ENDPOINT,
+} from '../../../client/constants';
 
 export class VPCClient extends RegionalServiceClient {
-  private client: AlibabaClient;
-
   constructor(config: IntegrationConfig, logger: IntegrationLogger) {
-    super({ logger });
-
-    this.client = new AlibabaClient({
+    const rootClientConfig = {
       accessKeyId: config.accessKeyId,
       accessKeySecret: config.accessKeySecret,
-      endpoint: 'https://vpc.aliyuncs.com',
-      apiVersion: '2016-04-28',
-    });
+      endpoint: VPC_ROOT_ENDPOINT,
+      apiVersion: VPC_API_VERSION,
+    };
 
-    // ECS does not have an endpoint for returning all regions that support ECS.
-    // Instead, its describeRegions endpoint returns a list of every region.
-    this.getRegions = (): Promise<string[]> => Promise.resolve(ECS_REGIONS);
+    super({ logger, rootClientConfig });
   }
 
   public async iterateVPCs(
     iteratee: ResourceIteratee<VPC & VPCAttribute>,
   ): Promise<void> {
-    return this.forEachRegion(async (region: string) => {
-      let curPage = 1;
-      let numVpcs = 0;
+    return this.forEachRegion(
+      async (client: AlibabaClient, regionId: string) => {
+        return this.forEachPage(async (pageNumber: number) => {
+          let vpcAttributeParameters: VPCAttributeParameters;
+          let vpcAttributeReq: DescribeVPCAttributeRequest;
 
-      let vpcParameters: VPCParameters;
-      let vpcAttributeParameters: VPCAttributeParameters;
-      let vpcReq: DescribeVPCsRequest;
-      let vpcAttributeReq: DescribeVPCAttributeRequest;
-
-      do {
-        vpcParameters = {
-          RegionId: region,
-          PageSize: PAGE_SIZE,
-          PageNumber: curPage,
-        };
-
-        vpcReq = {
-          client: this.client,
-          action: 'DescribeVpcs',
-          parameters: vpcParameters,
-        };
-
-        const {
-          Vpcs: { Vpc },
-        } = await this.request<DescribeVpcsResponse>(vpcReq);
-
-        for (const vpc of Vpc) {
-          vpcAttributeParameters = {
-            VpcId: vpc.VpcId,
-            RegionId: region,
+          const vpcParameters = {
+            RegionId: regionId,
+            PageSize: PAGE_SIZE,
+            PageNumber: pageNumber,
           };
 
-          vpcAttributeReq = {
-            client: this.client,
-            action: 'DescribeVpcAttribute',
-            parameters: vpcAttributeParameters,
+          const vpcReq = {
+            client,
+            action: 'DescribeVpcs',
+            parameters: vpcParameters,
+            options: {
+              timeout: 20000,
+            },
           };
 
-          const response = await this.request<DescribeVpcAttributeResponse>(
-            vpcAttributeReq,
-          );
-          const { RequestId, ...vpcAttributeResponse } = response;
+          const vpcResponse = await this.request<DescribeVpcsResponse>(vpcReq);
+          const {
+            Vpcs: { Vpc },
+          } = vpcResponse;
 
-          await iteratee({ ...vpc, ...(vpcAttributeResponse as VPCAttribute) });
-        }
+          for (const vpc of Vpc) {
+            vpcAttributeParameters = {
+              VpcId: vpc.VpcId,
+              RegionId: regionId,
+            };
 
-        numVpcs = Vpc.length;
-        curPage += 1;
-      } while (numVpcs >= PAGE_SIZE);
-    });
+            vpcAttributeReq = {
+              client,
+              action: 'DescribeVpcAttribute',
+              parameters: vpcAttributeParameters,
+            };
+
+            const response = await this.request<DescribeVpcAttributeResponse>(
+              vpcAttributeReq,
+            );
+            const { RequestId, ...vpcAttributeResponse } = response;
+
+            await iteratee({
+              ...vpc,
+              ...(vpcAttributeResponse as VPCAttribute),
+            });
+          }
+
+          return vpcResponse;
+        });
+      },
+    );
   }
 }
 

@@ -1,7 +1,7 @@
 import { Instance } from '../../types';
-import { PaginatedResponse } from '../../../../client/types/response';
+import { PaginatedResponseWithToken } from '../../../../client/types/response';
 
-export interface DescribeInstancesResponse extends PaginatedResponse {
+export interface DescribeInstancesResponse extends PaginatedResponseWithToken {
   Instances: {
     Instance: Instance[];
   };
