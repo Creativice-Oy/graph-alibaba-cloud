@@ -7,13 +7,16 @@ import {
   DescribeVPCsResponse,
   DescribeVPCAttributeResponse,
   DescribeNATGatewaysResponse,
+  DescribeVPNGatewaysResponse,
 } from './types/response';
-import { NATGateway, VPC, VPCAttribute } from '../types';
+import { NATGateway, VPC, VPCAttribute, VPNGateway } from '../types';
 import { RegionalServiceClient } from '../../../client/regionalClient';
 import {
   DescribeNATGatewaysRequest,
   DescribeVPCAttributeRequest,
   DescribeVPCsRequest,
+  DescribeVpnGatewaysParameters,
+  DescribeVPNGatewaysRequest,
   NATGatewayParameters,
   VPCAttributeParameters,
   VPCParameters,
@@ -46,21 +49,16 @@ export class VPCClient extends RegionalServiceClient {
       let pageNumber = 0;
       let totalVpcs = 0;
 
-      let vpcParameters: VPCParameters;
-      let vpcAttributeParameters: VPCAttributeParameters;
-      let vpcReq: DescribeVPCsRequest;
-      let vpcAttributeReq: DescribeVPCAttributeRequest;
-
       do {
-        pageNumber += 1;
+        pageNumber++;
 
-        vpcParameters = {
+        const vpcParameters: VPCParameters = {
           RegionId: region,
           PageSize: PAGE_SIZE,
           PageNumber: pageNumber,
         };
 
-        vpcReq = {
+        const vpcReq: DescribeVPCsRequest = {
           client: this.client,
           action: 'DescribeVpcs',
           parameters: vpcParameters,
@@ -72,12 +70,12 @@ export class VPCClient extends RegionalServiceClient {
         } = await this.request<DescribeVPCsResponse>(vpcReq);
 
         for (const vpc of Vpc) {
-          vpcAttributeParameters = {
+          const vpcAttributeParameters: VPCAttributeParameters = {
             VpcId: vpc.VpcId,
             RegionId: region,
           };
 
-          vpcAttributeReq = {
+          const vpcAttributeReq: DescribeVPCAttributeRequest = {
             client: this.client,
             action: 'DescribeVpcAttribute',
             parameters: vpcAttributeParameters,
@@ -103,28 +101,25 @@ export class VPCClient extends RegionalServiceClient {
       let pageNumber = 0;
       let totalNgws = 0;
 
-      let natGatewayParameters: NATGatewayParameters;
-      let natGatewayReq: DescribeNATGatewaysRequest;
-
       do {
-        pageNumber += 1;
+        pageNumber++;
 
-        natGatewayParameters = {
+        const parameters: NATGatewayParameters = {
           RegionId: region,
           PageSize: PAGE_SIZE,
           PageNumber: pageNumber,
         };
 
-        natGatewayReq = {
+        const req: DescribeNATGatewaysRequest = {
           client: this.client,
           action: 'DescribeNatGateways',
-          parameters: natGatewayParameters,
+          parameters,
         };
 
         const {
           NatGateways: { NatGateway },
           TotalCount,
-        } = await this.request<DescribeNATGatewaysResponse>(natGatewayReq);
+        } = await this.request<DescribeNATGatewaysResponse>(req);
 
         for (const ngw of NatGateway) {
           await iteratee(ngw);
@@ -132,6 +127,41 @@ export class VPCClient extends RegionalServiceClient {
 
         totalNgws = TotalCount;
       } while (pageNumber * PAGE_SIZE < totalNgws);
+    });
+  }
+
+  public async iterateVPNGateways(
+    iteratee: ResourceIteratee<VPNGateway>,
+  ): Promise<void> {
+    return this.forEachRegion(async (region: string) => {
+      let pageNumber = 0;
+      let totalVgws = 0;
+
+      do {
+        pageNumber++;
+
+        const parameters: DescribeVpnGatewaysParameters = {
+          RegionId: region,
+          PageSize: PAGE_SIZE,
+          PageNumber: pageNumber,
+        };
+
+        const req: DescribeVPNGatewaysRequest = {
+          client: this.client,
+          action: 'DescribeVpnGateways',
+          parameters,
+        };
+
+        const {
+          VpnGateways: { VpnGateway },
+          TotalCount,
+        } = await this.request<DescribeVPNGatewaysResponse>(req);
+        for (const vgw of VpnGateway) {
+          await iteratee(vgw);
+        }
+
+        totalVgws = TotalCount;
+      } while (pageNumber * PAGE_SIZE < totalVgws);
     });
   }
 }

@@ -19,13 +19,19 @@ export interface DescribeNATGatewaysRequest
   action: NATGatewayAction;
 }
 
+export interface DescribeVPNGatewaysRequest extends Request<VPNParameters> {
+  action: VPNAction;
+}
+
 export type VPCAction = 'DescribeVpcs';
 export type VPCAttributeAction = 'DescribeVpcAttribute';
 export type NATGatewayAction = 'DescribeNatGateways';
+export type VPNAction = 'DescribeVpnGateways';
 
 export type VPCParameters = DescribeVpcsParameters;
 export type VPCAttributeParameters = DescribeVpcAttributeParameters;
 export type NATGatewayParameters = DescribeNatGatewaysParameters;
+export type VPNParameters = DescribeVpnGatewaysParameters;
 
 export interface DescribeVpcsParameters {
   VpcId?: string;
@@ -60,6 +66,16 @@ export interface DescribeNatGatewaysParameters {
   Status?: NATGatewayStatus;
   NetworkType?: NATNetworkType;
   ZoneId?: string;
+  PageNumber?: number;
+  PageSize?: number;
+}
+
+export interface DescribeVpnGatewaysParameters {
+  RegionId: string;
+  VpcId?: string;
+  VpnGatewayId?: string;
+  Status?: string;
+  BusinessStatus?: string;
   PageNumber?: number;
   PageSize?: number;
 }

@@ -107,6 +107,7 @@ The following relationships are created:
 | `alibaba_cloud_vpc`               | **HAS**               | `alibaba_cloud_alb_load_balancer` |
 | `alibaba_cloud_vpc`               | **HAS**               | `alibaba_cloud_ecs_instance`      |
 | `alibaba_cloud_vpc`               | **HAS**               | `alibaba_cloud_nat_gateway`       |
+| `alibaba_cloud_vpc`               | **HAS**               | `alibaba_cloud_vpn_gateway`       |
 
 <!--
 ********************************************************************************

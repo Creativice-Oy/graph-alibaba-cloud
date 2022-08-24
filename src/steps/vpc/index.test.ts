@@ -31,4 +31,15 @@ describe('#vpc', () => {
     const stepResult = await executeStepWithDependencies(stepConfig);
     expect(stepResult).toMatchStepMetadata(stepConfig);
   }, 20000);
+
+  test('fetch-vpn-gateways', async () => {
+    recording = setupProjectRecording({
+      directory: __dirname,
+      name: 'fetch-vpn-gateways',
+    });
+
+    const stepConfig = buildStepTestConfigForStep(VPCSteps.FETCH_VPN_GATEWAYS);
+    const stepResult = await executeStepWithDependencies(stepConfig);
+    expect(stepResult).toMatchStepMetadata(stepConfig);
+  }, 20000);
 });

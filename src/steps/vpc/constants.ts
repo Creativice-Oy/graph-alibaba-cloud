@@ -7,10 +7,15 @@ import {
 export enum VPCSteps {
   FETCH_VPCS = 'fetch-vpcs',
   FETCH_NAT_GATEWAYS = 'fetch-nat-gateways',
+  FETCH_VPN_GATEWAYS = 'fetch-vpn-gateways',
   BUILD_VPC_NAT_GATEWAY_RELATIONSHIPS = 'build-vpc-has-nat-gateway-relationships',
+  BUILD_VPC_VPN_GATEWAY_RELATIONSHIPS = 'build-vpc-has-vpn-gateway-relationships',
 }
 
-export const VPCEntities: Record<'VPC' | 'NAT_GATEWAY', StepEntityMetadata> = {
+export const VPCEntities: Record<
+  'VPC' | 'NAT_GATEWAY' | 'VPN_GATEWAY',
+  StepEntityMetadata
+> = {
   VPC: {
     resourceName: 'VPC',
     _type: 'alibaba_cloud_vpc',
@@ -96,10 +101,15 @@ export const VPCEntities: Record<'VPC' | 'NAT_GATEWAY', StepEntityMetadata> = {
       required: ['category', 'function', 'public', 'id'],
     },
   },
+  VPN_GATEWAY: {
+    resourceName: 'VPN Gateway',
+    _type: 'alibaba_cloud_vpn_gateway',
+    _class: ['Gateway'],
+  },
 };
 
 export const VPCRelationships: Record<
-  'VPC_HAS_NAT_GATEWAY',
+  'VPC_HAS_NAT_GATEWAY' | 'VPC_HAS_VPN_GATEWAY',
   StepRelationshipMetadata
 > = {
   VPC_HAS_NAT_GATEWAY: {
@@ -107,5 +117,11 @@ export const VPCRelationships: Record<
     sourceType: VPCEntities.VPC._type,
     _class: RelationshipClass.HAS,
     targetType: VPCEntities.NAT_GATEWAY._type,
+  },
+  VPC_HAS_VPN_GATEWAY: {
+    _type: 'alibaba_cloud_vpc_has_vpn_gateway',
+    sourceType: VPCEntities.VPC._type,
+    _class: RelationshipClass.HAS,
+    targetType: VPCEntities.VPN_GATEWAY._type,
   },
 };

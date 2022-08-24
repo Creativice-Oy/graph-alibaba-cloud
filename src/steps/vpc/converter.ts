@@ -5,7 +5,13 @@ import {
 } from '@jupiterone/integration-sdk-core';
 
 import { VPCEntities } from './constants';
-import { NATGateway, NATNetworkType, VPC, VPCAttribute } from './types';
+import {
+  NATGateway,
+  NATNetworkType,
+  VPC,
+  VPCAttribute,
+  VPNGateway,
+} from './types';
 
 export function getVpcKey(vpcId: string) {
   return `alibaba_cloud_vpc:${vpcId}`;
@@ -13,6 +19,10 @@ export function getVpcKey(vpcId: string) {
 
 export function getNatKey(natGatewayId: string) {
   return `alibaba_cloud_nat_gateway:${natGatewayId}`;
+}
+
+export function getVpnKey(vpnGatewayId: string) {
+  return `alibaba_cloud_vpn_gateway:${vpnGatewayId}`;
 }
 
 export function createVPCEntity(vpc: VPC & VPCAttribute): Entity {
@@ -127,6 +137,38 @@ export function createNATGatewayEntity(natGateway: NATGateway): Entity {
         'natGatewayPrivateInfo.izNo': natGateway.NatGatewayPrivateInfo.IzNo,
         'natGatewayPrivateInfo.eniType':
           natGateway.NatGatewayPrivateInfo.EniType,
+      },
+    },
+  });
+}
+
+export function createVPNGatewayEntity(vpnGateway: VPNGateway): Entity {
+  return createIntegrationEntity({
+    entityData: {
+      source: vpnGateway,
+      assign: {
+        _type: VPCEntities.VPN_GATEWAY._type,
+        _class: VPCEntities.VPN_GATEWAY._class,
+        _key: getVpnKey(vpnGateway.VpnGatewayId),
+        status: vpnGateway.Status,
+        active: vpnGateway.Status === 'active',
+        ipsecVpn: vpnGateway.IpsecVpn,
+        sslVpn: vpnGateway.SslVpn,
+        vpnType: vpnGateway.VpnType,
+        enableBgp: vpnGateway.EnableBgp,
+        createdOn: vpnGateway.CreateTime,
+        endedOn: vpnGateway.EndTime,
+        businessStatus: vpnGateway.BusinessStatus,
+        name: vpnGateway.Name,
+        vpcId: vpnGateway.VpcId,
+        vpnGatewayId: vpnGateway.VpnGatewayId,
+        chargeType: vpnGateway.ChargeType,
+        networkType: vpnGateway.NetworkType,
+        spec: vpnGateway.Spec,
+        tag: vpnGateway.Tag,
+        category: ['network'],
+        function: ['other'],
+        public: vpnGateway.NetworkType === 'public',
       },
     },
   });

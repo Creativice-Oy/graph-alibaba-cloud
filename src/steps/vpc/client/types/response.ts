@@ -1,4 +1,4 @@
-import { NATGateway, VPC, VPCAttribute } from '../../types';
+import { NATGateway, VPC, VPCAttribute, VPNGateway } from '../../types';
 import {
   AlibabaResponse,
   PaginatedResponseWithoutToken,
@@ -16,5 +16,12 @@ export interface DescribeNATGatewaysResponse
   extends PaginatedResponseWithoutToken {
   NatGateways: {
     NatGateway: NATGateway[];
+  };
+}
+
+export interface DescribeVPNGatewaysResponse
+  extends PaginatedResponseWithoutToken {
+  VpnGateways: {
+    VpnGateway: VPNGateway[];
   };
 }
