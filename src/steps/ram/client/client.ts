@@ -6,6 +6,7 @@ import {
   ListGroupsResponse,
   ListRolesResponse,
   ListPoliciesResponse,
+  GetAliasResponse,
 } from './types/response';
 import { User, Group, Role, Policy } from '../types';
 import {
@@ -269,6 +270,18 @@ export class RAMClient extends ServiceClient {
     for (const role of roles) {
       await iteratee(role);
     }
+  }
+
+  public async getEnterpriseAlias() {
+    const parameters = {};
+    const req: RAMRequest = {
+      client: this.client,
+      action: 'GetAccountAlias',
+      parameters,
+    };
+
+    const response = await this.request<GetAliasResponse>(req);
+    return response.AccountAlias;
   }
 }
 

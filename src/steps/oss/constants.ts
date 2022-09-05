@@ -4,6 +4,8 @@ import {
   StepRelationshipMetadata,
 } from '@jupiterone/integration-sdk-core';
 
+export const OSS_REQ_TIMEOUT = 90000;
+
 export const OSSSteps = {
   FETCH_OSS_BUCKETS: {
     id: 'fetch-oss-buckets',

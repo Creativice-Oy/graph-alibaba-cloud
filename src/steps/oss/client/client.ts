@@ -2,6 +2,7 @@ import AlibabaOSSClient, { Bucket, ObjectMeta } from 'ali-oss';
 
 import { ResourceIteratee } from '../../../client/client';
 import { IntegrationConfig } from '../../../config';
+import { OSS_REQ_TIMEOUT } from '../constants';
 import { BucketInfo, BucketInfoResponse, BucketsResponse } from '../types';
 
 export class OSSClient {
@@ -14,6 +15,7 @@ export class OSSClient {
     this.client = new AlibabaOSSClient({
       accessKeyId: this.config.accessKeyId,
       accessKeySecret: this.config.accessKeySecret,
+      timeout: OSS_REQ_TIMEOUT,
     });
   }
 

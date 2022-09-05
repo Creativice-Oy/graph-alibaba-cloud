@@ -9,12 +9,18 @@ import {
 import { createRAMClient } from './client/client';
 import { User, Group, Role, Policy } from './types';
 import { IntegrationConfig } from '../../config';
-import { RAMEntities, RAMSteps, RAMRelationships } from './constants';
+import {
+  RAMEntities,
+  RAMSteps,
+  RAMRelationships,
+  ACCOUNT_ENTITY_KEY,
+} from './constants';
 import {
   createRAMUserEntity,
   createRAMGroupEntity,
   createRAMRoleEntity,
   createRAMPolicyEntity,
+  createAccountEntity,
   getRAMUserKey,
   getRAMGroupKey,
   getRAMRoleKey,
@@ -309,6 +315,23 @@ export async function buildPolicyAndRoleRelationships({
   );
 }
 
+export async function fetchAccount({
+  instance,
+  jobState,
+  logger,
+}: IntegrationStepExecutionContext<IntegrationConfig>) {
+  const client = createRAMClient(instance.config, logger);
+
+  const enterpriseAlias = await client.getEnterpriseAlias();
+
+  const accountEntity = createAccountEntity({
+    accountAlias: enterpriseAlias,
+  });
+
+  await jobState.addEntity(accountEntity);
+  await jobState.setData(ACCOUNT_ENTITY_KEY, accountEntity);
+}
+
 export const ramSteps: IntegrationStep<IntegrationConfig>[] = [
   {
     id: RAMSteps.FETCH_RAM_USERS,
@@ -389,5 +412,13 @@ export const ramSteps: IntegrationStep<IntegrationConfig>[] = [
     relationships: [RAMRelationships.POLICY_ASSIGNED_ROLE],
     dependsOn: [RAMSteps.FETCH_RAM_ROLES_POLICIES],
     executionHandler: buildPolicyAndRoleRelationships,
+  },
+  {
+    id: RAMSteps.FETCH_ACCOUNT,
+    name: 'Fetch Account',
+    entities: [RAMEntities.ACCOUNT],
+    relationships: [],
+    dependsOn: [],
+    executionHandler: fetchAccount,
   },
 ];

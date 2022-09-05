@@ -135,4 +135,15 @@ describe('#ram', () => {
     const stepResult = await executeStepWithDependencies(stepConfig);
     expect(stepResult).toMatchStepMetadata(stepConfig);
   });
+
+  test('fetch-account', async () => {
+    recording = setupProjectRecording({
+      directory: __dirname,
+      name: 'fetch-account',
+    });
+
+    const stepConfig = buildStepTestConfigForStep(RAMSteps.FETCH_ACCOUNT);
+    const stepResult = await executeStepWithDependencies(stepConfig);
+    expect(stepResult).toMatchStepMetadata(stepConfig);
+  });
 });

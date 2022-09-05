@@ -91,6 +91,7 @@ The following entities are created:
 | Resources         | Entity `_type`                    | Entity `_class`       |
 | ----------------- | --------------------------------- | --------------------- |
 | ALB Load Balancer | `alibaba_cloud_alb_load_balancer` | `Gateway`             |
+| Account           | `alibaba_cloud_account`           | `Account`             |
 | Autoscaling Group | `alibaba_cloud_autoscaling_group` | `Deployment`, `Group` |
 | ECS Instance      | `alibaba_cloud_ecs_instance`      | `Host`                |
 | NAT Gateway       | `alibaba_cloud_nat_gateway`       | `Gateway`             |

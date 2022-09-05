@@ -15,11 +15,11 @@ and this project adheres to
 | Resources         | Entity `_type`                    | Entity `_class`       |
 | ----------------- | --------------------------------- | --------------------- |
 | ALB Load Balancer | `alibaba_cloud_alb_load_balancer` | `Gateway`             |
+| Account           | `alibaba_cloud_account`           | `Account`             |
 | Autoscaling Group | `alibaba_cloud_autoscaling_group` | `Deployment`, `Group` |
 | NAT Gateway       | `alibaba_cloud_nat_gateway`       | `Gateway`             |
 | OSS Bucket        | `alibaba_cloud_oss_bucket`        | `DataStore`           |
 | OSS Object        | `alibaba_cloud_oss_object`        | `DataObject`          |
-| RAM Group         | `alibaba_cloud_ram_group`         | `UserGroup`           |
 | RAM Group         | `alibaba_cloud_ram_group`         | `UserGroup`           |
 | RAM Policy        | `alibaba_cloud_ram_policy`        | `Policy`              |
 | RAM Role          | `alibaba_cloud_ram_role`          | `AccessRole`          |

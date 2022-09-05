@@ -187,4 +187,22 @@ export const ramSpec: StepSpec<IntegrationConfig>[] = [
     dependsOn: [RAMSteps.FETCH_RAM_ROLES_POLICIES],
     implemented: true,
   },
+  {
+    /**
+     * Action: GetAccountAlias,
+     * PATTERN: Fetch Entity
+     */
+    id: 'fetch-account',
+    name: 'Fetch Account',
+    entities: [
+      {
+        resourceName: 'Account',
+        _type: 'alibaba_cloud_account',
+        _class: ['Account'],
+      },
+    ],
+    relationships: [],
+    dependsOn: [],
+    implemented: true,
+  },
 ];

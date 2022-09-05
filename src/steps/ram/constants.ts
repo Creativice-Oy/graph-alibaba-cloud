@@ -5,6 +5,7 @@ import {
 } from '@jupiterone/integration-sdk-core';
 
 export const RAM_REQ_TIMEOUT = 20000;
+export const ACCOUNT_ENTITY_KEY = 'entity:account';
 
 export enum RAMSteps {
   FETCH_RAM_USERS = 'fetch-ram-users',
@@ -17,10 +18,16 @@ export enum RAMSteps {
   BUILD_POLICY_USER_RELATIONSHIPS = 'build-policy-and-user-relationships',
   BUILD_POLICY_GROUP_RELATIONSHIPS = 'build-policy-and-group-relationships',
   BUILD_POLICY_ROLE_RELATIONSHIPS = 'build-policy-and-role-relationships',
+  FETCH_ACCOUNT = 'fetch-account',
 }
 
 export const RAMEntities: Record<
-  'ECS_INSTANCE' | 'RAM_USER' | 'RAM_ROLE' | 'RAM_GROUP' | 'RAM_POLICY',
+  | 'ECS_INSTANCE'
+  | 'RAM_USER'
+  | 'RAM_ROLE'
+  | 'RAM_GROUP'
+  | 'RAM_POLICY'
+  | 'ACCOUNT',
   StepEntityMetadata
 > = {
   ECS_INSTANCE: {
@@ -57,6 +64,11 @@ export const RAMEntities: Record<
     resourceName: 'RAM Policy',
     _type: 'alibaba_cloud_ram_policy',
     _class: ['Policy'],
+  },
+  ACCOUNT: {
+    resourceName: 'Account',
+    _type: 'alibaba_cloud_account',
+    _class: ['Account'],
   },
 };
 

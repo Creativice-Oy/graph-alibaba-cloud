@@ -6,6 +6,23 @@ import {
 import { RAMEntities } from './constants';
 import { User, Group, Role, Policy } from './types';
 
+export function getAccountKey(name: string): string {
+  return `alibaba_cloud_ram_account:${name}`;
+}
+
+export function createAccountEntity(account: { accountAlias: string }): Entity {
+  return createIntegrationEntity({
+    entityData: {
+      source: account,
+      assign: {
+        _key: getAccountKey(account.accountAlias),
+        _type: RAMEntities.ACCOUNT._type,
+        _class: RAMEntities.ACCOUNT._class,
+        name: account.accountAlias,
+      },
+    },
+  });
+}
 export function getRAMUserKey(id: string): string {
   return `alibaba_cloud_ram_user:${id}`;
 }

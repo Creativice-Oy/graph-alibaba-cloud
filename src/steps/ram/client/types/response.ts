@@ -32,3 +32,7 @@ export interface ListPoliciesResponse extends PaginatedResponse {
 
   Marker?: string;
 }
+
+export interface GetAliasResponse extends PaginatedResponse {
+  AccountAlias: string;
+}

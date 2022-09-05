@@ -13,7 +13,8 @@ export type RAMAction =
   | 'ListPoliciesForGroup'
   | 'ListPoliciesForRole'
   | 'ListUsersForGroup'
-  | 'ListEntitiesForPolicy';
+  | 'ListEntitiesForPolicy'
+  | 'GetAccountAlias';
 export type RAMParameters =
   | ListUsersParameters
   | ListGroupsParameters
