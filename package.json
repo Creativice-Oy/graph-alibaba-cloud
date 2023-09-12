@@ -40,6 +40,6 @@
   "dependencies": {
     "@alicloud/pop-core": "^1.7.10",
     "@types/ali-oss": "^6.16.4",
-    "ali-oss": "^6.17.1"
+    "ali-oss": "^6.18.1"
   }
 }
